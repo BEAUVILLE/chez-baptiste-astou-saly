@@ -53,34 +53,4 @@ Cette page est destinée aux clients qui souhaitent :
 
 - 📸 **Visuel DIGIY CHEZ BAPTISTE** :  
   https://digiylyfe.com/wp-content/uploads/2025/06/042-BAPTISTE.png
-
----
-
-## 🛠️ Mise à jour du module
-
-Pour modifier le contenu de la page publique :
-
-1. Éditer `loc.html` :
-   - changer éventuellement le texte de description,
-   - ajuster les tarifs,
-   - modifier les numéros de téléphone ou liens WhatsApp,
-   - changer les URLs de la photo ou de la vidéo si besoin.
-
-2. Commiter les changements sur la branche principale (`main`).
-
-3. GitHub Pages mettra automatiquement à jour la page publique après quelques instants.
-
----
-
-## 🧱 Réutilisation DIGIY LOC
-
-Ce dépôt peut servir de **modèle DIGIY LOC** pour d’autres logements :
-
-1. Dupliquer le dépôt (ou copier les 3 fichiers).
-2. Adapter les textes, tarifs et contacts dans `loc.html`.
-3. Mettre à jour `admin.html` avec les bonnes infos.
-4. Activer GitHub Pages pour obtenir une nouvelle URL.
-
----
-
 _Module créé dans l’écosystème **DIGIYLYFE**, pour une économie locale souveraine et directe._
