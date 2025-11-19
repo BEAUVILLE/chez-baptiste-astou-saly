@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>CHEZ BAPTISTE — Admin PRO DIGIY LOC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root{
+      --bg:#fdf7ec;
+      --bg-alt:#f7ecd8;
+      --card:#ffffff;
+      --line:#e5d5bc;
+      --ink:#1f2933;
+      --muted:#6b7280;
+      --accent:#b7791f;
+      --accent-soft:#f6ad55;
+      --danger:#b91c1c;
+      --ok:#15803d;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+    }
+    .app{
+      max-width:1100px;
+      margin:0 auto;
+      padding:12px 12px 24px;
+    }
+    header{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      padding:8px 2px 12px;
+    }
+    .title-block h1{
+      margin:0;
+      font-size:22px;
+    }
+    .title-block small{
+      display:block;
+      font-size:12px;
+      color:var(--muted);
+      margin-top:4px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-size:11px;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.5);
+      background:rgba(255,255,255,.7);
+      color:var(--muted);
+    }
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      justify-content:flex-end;
+    }
+    .btn{
+      border:none;
+      border-radius:999px;
+      padding:7px 11px;
+      font-size:13px;
+      font-weight:600;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .btn-wa{
+      background:#16a34a;
+      color:#ecfdf3;
+    }
+    .btn-call{
+      background:#0ea5e9;
+      color:#e0f2fe;
+    }
+    .btn-link{
+      background:#ffffff;
+      color:#1f2933;
+      border:1px solid var(--line);
+    }
+
+    /* Layout */
+    .grid{
+      display:grid;
+      grid-template-columns:2fr 1.4fr;
+      gap:12px;
+      margin-top:4px;
+    }
+    @media(max-width:900px){
+      .grid{grid-template-columns:1fr;}
+      header{flex-direction:column;}
+      .actions{justify-content:flex-start;}
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:16px;
+      border:1px solid var(--line);
+      box-shadow:0 14px 30px rgba(0,0,0,.05);
+      padding:12px;
+    }
+    .card h2{
+      margin:0 0 6px;
+      font-size:16px;
+    }
+    .card small{
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    /* Stat blocks */
+    .stats-row{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:8px;
+      margin-top:8px;
+    }
+    @media(max-width:700px){
+      .stats-row{grid-template-columns:1fr;}
+    }
+    .stat{
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:var(--bg-alt);
+    }
+    .stat-label{
+      font-size:11px;
+      color:var(--muted);
+      margin-bottom:2px;
+    }
+    .stat-value{
+      font-size:17px;
+      font-weight:700;
+    }
+    .stat-footer{
+      font-size:11px;
+      color:var(--muted);
+      margin-top:2px;
+    }
+
+    /* Table réservations */
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:8px;
+      font-size:13px;
+    }
+    th,td{
+      padding:6px 4px;
+      text-align:left;
+      border-bottom:1px solid #f1e4cf;
+    }
+    th{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:600;
+    }
+    tbody tr:last-child td{
+      border-bottom:none;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      padding:2px 7px;
+      border-radius:999px;
+      font-size:11px;
+    }
+    .pill-ok{
+      background:#dcfce7;
+      color:#166534;
+    }
+    .pill-wait{
+      background:#fef3c7;
+      color:#92400e;
+    }
+    .pill-cancel{
+      background:#fee2e2;
+      color:#991b1b;
+    }
+
+    /* Right column blocks */
+    .info-list{
+      margin:8px 0 0;
+      padding:0;
+      list-style:none;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .info-list li{
+      margin-bottom:4px;
+    }
+    .info-list strong{
+      color:var(--ink);
+    }
+    .link-list{
+      margin:8px 0 0;
+      padding-left:16px;
+      font-size:13px;
+    }
+    .link-list a{
+      color:#2563eb;
+      text-decoration:none;
+    }
+    .link-list a:hover{text-decoration:underline;}
+
+    footer{
+      margin-top:14px;
+      font-size:11px;
+      color:var(--muted);
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <div class="title-block">
+      <h1>CHEZ BAPTISTE — Admin PRO DIGIY LOC</h1>
+      <small>Vue propriétaire, inspirée de Booking Pulse — suivi des séjours, tarifs et contacts.</small>
+      <div style="margin-top:6px;">
+        <span class="badge">🏡 Appartement à Saly · 4 personnes max · Sénélec en sus</span>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-wa" href="https://wa.me/221771342889" target="_blank" rel="noopener">
+        💬 WhatsApp Baptiste
+      </a>
+      <a class="btn btn-call" href="tel:+221771342889">
+        📞 Appeler Baptiste
+      </a>
+      <a class="btn btn-link" href="https://beauville.github.io/chez-baptiste-digiy-loc/" target="_blank" rel="noopener">
+        🌐 Voir page DIGIY LOC
+      </a>
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- COLONNE GAUCHE : STATS + RÉSERVATIONS -->
+    <section class="card">
+      <h2>Vue rapide des séjours</h2>
+      <small>Indicateurs à mettre à jour manuellement pour l’instant (plus tard connectés à DIGIY PAY / DIGIY LOC).</small>
+
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-label">Séjours en cours</div>
+          <div class="stat-value">0</div>
+          <div class="stat-footer">Clients actuellement dans l’appart</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Arrivées à venir (7 jours)</div>
+          <div class="stat-value">0</div>
+          <div class="stat-footer">À ajuster selon les réservations</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Total prévisionnel mois</div>
+          <div class="stat-value">0 F</div>
+          <div class="stat-footer">Somme des séjours confirmés</div>
+        </div>
+      </div>
+
+      <h2 style="margin-top:12px;">Réservations (manuel pour l’instant)</h2>
+      <small>Inscris ici les réservations validées. Plus tard, ce tableau sera alimenté automatiquement.</small>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Dates</th>
+            <th>Nuits</th>
+            <th>Montant</th>
+            <th>Statut</th>
+            <th>Canal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td><span class="pill pill-wait">En attente</span></td>
+            <td>—</td>
+          </tr>
+          <!--
+          Exemple à remplir :
+          <tr>
+            <td>M. Ndiaye</td>
+            <td>12/01 → 15/01</td>
+            <td>3</td>
+            <td>90 000 F</td>
+            <td><span class="pill pill-ok">Confirmé</span></td>
+            <td>WhatsApp</td>
+          </tr>
+          -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- COLONNE DROITE : FICHE LOGEMENT + LIENS -->
+    <aside class="card">
+      <h2>Fiche logement</h2>
+      <small>Rappel des infos clés pour CHEZ BAPTISTE.</small>
+
+      <ul class="info-list">
+        <li><strong>Nom :</strong> CHEZ BAPTISTE — Appartement à Saly</li>
+        <li><strong>Capacité :</strong> 4 personnes maximum</li>
+        <li><strong>Configuration :</strong> 2 chambres, 2 SDB, salon, cuisine équipée</li>
+        <li><strong>Quartier :</strong> Saly, résidentiel, calme, proche commodités</li>
+      </ul>
+
+      <h3 style="margin:10px 0 4px; font-size:14px;">Tarifs de référence</h3>
+      <ul class="info-list">
+        <li><strong>Nuit :</strong> 30 000 F</li>
+        <li><strong>Semaine :</strong> 175 000 F</li>
+        <li><strong>Mois :</strong> 450 000 F</li>
+        <li><strong>Sénélec :</strong> en sus, selon consommation</li>
+      </ul>
+
+      <h3 style="margin:10px 0 4px; font-size:14px;">Contacts</h3>
+      <ul class="info-list">
+        <li><strong>WhatsApp principal :</strong> +221 77 134 28 89</li>
+        <li><strong>WhatsApp / tél. secondaire :</strong> +221 77 876 57 86</li>
+      </ul>
+
+      <h3 style="margin:10px 0 4px; font-size:14px;">Liens DIGIY</h3>
+      <ul class="link-list">
+        <li>
+          🌐 <a href="https://beauville.github.io/chez-baptiste-digiy-loc/" target="_blank" rel="noopener">
+          Page publique DIGIY LOC</a>
+        </li>
+        <li>
+          🪪 <a href="https://digiylyfe.com/partenaires-chez-baptiste/" target="_blank" rel="noopener">
+          Fiche Partenaire sur DIGIYLYFE.com</a>
+        </li>
+        <li>
+          🎥 <a href="https://drive.google.com/file/d/1oEVpt1R7fWBAJnKZlPu_fp2gqS-Z1kni/preview" target="_blank" rel="noopener">
+          Vidéo de présentation</a>
+        </li>
+        <li>
+          📸 <a href="https://digiylyfe.com/wp-content/uploads/2025/06/042-BAPTISTE.png" target="_blank" rel="noopener">
+          Visuel officiel DIGIY</a>
+        </li>
+      </ul>
+    </aside>
+  </div>
+
+  <footer>
+    Module Admin PRO DIGIY LOC — CHEZ BAPTISTE · Inspiré des dashboards type Pulse, simplifié pour le terrain.
+  </footer>
+</div>
+</body>
+</html>
