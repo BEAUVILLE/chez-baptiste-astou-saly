@@ -2,353 +2,418 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>DIGIY LOC — HUB DIRECT PROPRIÉTAIRES</title>
+  <title>Chez Astou & Baptiste — Saly Joseph • DIGIY LOC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Chez Astou & Baptiste — Un havre de calme à Saly Joseph : on pose les valises… et on respire. Location courte, semaine ou mois. Réservation directe, 0% commission, via DIGIY LOC.">
+
   <style>
     :root{
       --bg:#020617;
-      --bg-soft:#020617;
-      --card:#020617;
-      --accent:#facc15;
-      --accent-soft:#f97316;
+      --bg-soft:#020818;
+      --card:#030712;
+      --accent-main:#f97316;
+      --accent-soft:#fed7aa;
+      --accent-green:#22c55e;
+      --accent-blue:#38bdf8;
       --ink:#f9fafb;
-      --muted:#9ca3af;
+      --muted:#cbd5f5;
       --line:#1f2937;
-      --wave:#22c55e;
+      --shadow-soft:0 20px 45px rgba(15,23,42,0.9);
     }
+
     *{
-      box-sizing:border-box;
       margin:0;
       padding:0;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+      box-sizing:border-box;
     }
+
     body{
-      background:radial-gradient(circle at top,#111827 0,#020617 55%);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at top left,rgba(248,250,252,0.05),transparent 55%),
+        radial-gradient(circle at bottom right,rgba(248,250,252,0.06),transparent 60%),
+        var(--bg);
       color:var(--ink);
       min-height:100vh;
       display:flex;
       justify-content:center;
-      padding:12px;
-    }
-    .app{
-      width:100%;
-      max-width:1120px;
-      background:radial-gradient(circle at top,#020617,#020617 50%,#020617 100%);
-      border-radius:22px;
-      border:1px solid rgba(148,163,184,0.35);
-      box-shadow:0 20px 50px rgba(0,0,0,0.6);
-      padding:14px 14px 18px;
-      display:flex;
-      flex-direction:column;
-      gap:14px;
+      padding:1.5rem 1rem 2.5rem;
     }
 
+    .app{
+      width:100%;
+      max-width:1180px;
+      background:linear-gradient(145deg,#020617,#020818);
+      border-radius:24px;
+      box-shadow:var(--shadow-soft);
+      border:1px solid rgba(148,163,184,0.6);
+      overflow:hidden;
+    }
+
+    @media (max-width:768px){
+      .app{border-radius:18px;}
+    }
+
+    /* HEADER */
     header{
+      padding:1.5rem 1.8rem 1.3rem;
+      border-bottom:1px solid rgba(148,163,184,0.35);
       display:flex;
       justify-content:space-between;
-      gap:12px;
-      align-items:flex-start;
-      flex-wrap:wrap;
+      align-items:center;
+      gap:1rem;
+      background:radial-gradient(circle at top left,rgba(249,115,22,0.25),transparent 60%);
     }
+
     .brand{
       display:flex;
-      gap:10px;
       align-items:center;
+      gap:0.9rem;
     }
-    .logo-badge{
-      width:42px;
-      height:42px;
+
+    .brand-logo{
+      width:46px;
+      height:46px;
       border-radius:16px;
-      background:radial-gradient(circle at 20% 0%, #fef9c3, #facc15 45%, #854d0e 100%);
+      background:radial-gradient(circle at 30% 20%,#fef3c7,#f97316);
       display:flex;
       align-items:center;
       justify-content:center;
       font-weight:900;
-      font-size:21px;
+      font-size:1.5rem;
       color:#111827;
-      box-shadow:0 0 0 1px rgba(250,250,250,0.6),0 10px 20px rgba(180,120,30,0.6);
-      position:relative;
+      box-shadow:0 12px 30px rgba(249,115,22,0.75);
     }
-    .logo-badge::after{
-      content:"";
-      position:absolute;
-      top:-2px;
-      right:-2px;
-      width:10px;
-      height:10px;
-      border-radius:999px;
-      background:#22c55e;
-      border:2px solid #020617;
-      box-shadow:0 0 10px rgba(34,197,94,0.8);
-    }
-    .brand-text{
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-    }
-    .brand-text span.label{
-      font-size:10px;
+
+    .brand-text-title{
+      font-size:1rem;
+      font-weight:800;
       letter-spacing:0.18em;
       text-transform:uppercase;
-      color:var(--muted);
-    }
-    .brand-text span.title{
-      font-size:18px;
-      font-weight:800;
-      background:linear-gradient(135deg,#ffffff,var(--accent));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
-    }
-    .brand-text span.subtitle{
-      font-size:11px;
-      color:var(--muted);
     }
 
-    .header-right{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      align-items:flex-end;
-      font-size:11px;
+    .brand-text-sub{
+      font-size:0.8rem;
       color:var(--muted);
-      text-align:right;
+      text-transform:uppercase;
+      letter-spacing:0.16em;
     }
-    .pill-row{
+
+    .digiy-pill{
+      padding:0.4rem 0.9rem;
+      border-radius:999px;
+      border:1px solid rgba(34,197,94,0.9);
+      background:rgba(22,163,74,0.18);
+      color:#bbf7d0;
+      font-size:0.75rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:0.14em;
+      white-space:nowrap;
+    }
+
+    @media (max-width:640px){
+      header{flex-direction:column;align-items:flex-start;}
+    }
+
+    /* HERO */
+    .hero{
+      padding:1.6rem 1.8rem 1.4rem;
+      display:grid;
+      grid-template-columns:minmax(0,1.8fr) minmax(0,1.2fr);
+      gap:1.5rem;
+    }
+
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr;}
+    }
+
+    .hero-title{
+      font-size:2rem;
+      line-height:1.2;
+      font-weight:800;
+      margin-bottom:0.5rem;
+    }
+
+    .hero-title span{
+      color:var(--accent-soft);
+    }
+
+    .hero-tagline{
+      font-size:1rem;
+      color:var(--ink);
+      margin-bottom:0.9rem;
+      font-weight:500;
+    }
+
+    .hero-location{
       display:flex;
       flex-wrap:wrap;
-      gap:6px;
-      justify-content:flex-end;
+      gap:0.4rem 0.8rem;
+      font-size:0.9rem;
+      color:var(--muted);
+      margin-bottom:1.1rem;
     }
-    .pill{
-      border-radius:999px;
-      padding:4px 9px;
-      border:1px solid rgba(148,163,184,0.7);
-      font-size:10px;
+
+    .hero-location span{
       display:inline-flex;
       align-items:center;
-      gap:6px;
-      background:rgba(15,23,42,0.9);
-      color:var(--muted);
-    }
-    .pill .dot{
-      width:7px;
-      height:7px;
-      border-radius:999px;
-      background:radial-gradient(circle at 30% 0%,#bbf7d0,#22c55e);
-      box-shadow:0 0 0 2px rgba(34,197,94,0.4);
-    }
-    .pill-gold{
-      border-color:rgba(250,204,21,0.8);
-      background:rgba(23,23,23,0.95);
-      color:#eab308;
+      gap:0.35rem;
     }
 
-    /* Filtres */
-    .filters{
-      margin-top:4px;
-      padding:8px 10px;
-      border-radius:14px;
-      border:1px solid rgba(31,41,55,0.9);
-      background:radial-gradient(circle at top left,#020617,#020617);
+    .hero-location strong{
+      color:var(--accent-soft);
+    }
+
+    .badges-row{
       display:flex;
       flex-wrap:wrap;
-      gap:8px;
-      align-items:center;
-      font-size:12px;
-    }
-    .filters label{
-      font-size:11px;
-      color:var(--muted);
-    }
-    .filters select,
-    .filters input{
-      background:#020617;
-      border-radius:999px;
-      border:1px solid #1f2937;
-      color:#e5e7eb;
-      padding:6px 9px;
-      font-size:12px;
-      outline:none;
-      min-width:120px;
-    }
-    .filters input::placeholder{
-      color:#6b7280;
+      gap:0.4rem;
+      margin-bottom:1.2rem;
     }
 
-    /* Grille logements */
-    .grid{
-      margin-top:4px;
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:12px;
-    }
-    .card{
-      background:radial-gradient(circle at top left,#020617,#020617 50%,#020617 100%);
-      border-radius:18px;
-      border:1px solid #1f2937;
-      box-shadow:0 14px 30px rgba(0,0,0,0.7);
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      min-height:260px;
-    }
-    .card-header-img{
-      position:relative;
-      height:150px;
-      overflow:hidden;
-      background:#020617;
-    }
-    .card-header-img img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      filter:brightness(0.9);
-      transition:transform 0.3s ease, filter 0.3s ease;
-    }
-    .card:hover .card-header-img img{
-      transform:scale(1.03);
-      filter:brightness(1);
-    }
-    .badge-city{
-      position:absolute;
-      left:8px;
-      bottom:8px;
-      padding:3px 8px;
+    .badge{
+      padding:0.3rem 0.75rem;
       border-radius:999px;
-      font-size:10px;
-      background:rgba(15,23,42,0.9);
       border:1px solid rgba(148,163,184,0.7);
-      color:#e5e7eb;
-      backdrop-filter:blur(6px);
-    }
-    .badge-direct{
-      position:absolute;
-      right:8px;
-      top:8px;
-      padding:3px 8px;
-      border-radius:999px;
-      font-size:10px;
-      background:rgba(34,197,94,0.14);
-      border:1px solid rgba(34,197,94,0.7);
-      color:#bbf7d0;
-      display:flex;
-      align-items:center;
-      gap:4px;
+      font-size:0.75rem;
+      text-transform:uppercase;
+      letter-spacing:0.14em;
+      color:var(--muted);
+      font-weight:700;
     }
 
-    .card-body{
-      padding:10px 11px 11px;
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      flex:1;
+    .badge-accent{
+      border-color:rgba(249,115,22,1);
+      color:var(--accent-soft);
+      background:rgba(249,115,22,0.13);
     }
-    .card-owner{
-      font-size:11px;
-      color:var(--muted);
-    }
-    .card-title{
-      font-size:15px;
-      font-weight:800;
-      color:#f9fafb;
-    }
-    .card-meta{
-      font-size:11px;
-      color:var(--muted);
-    }
-    .price-line{
-      margin-top:2px;
-      font-size:13px;
-      font-weight:700;
-      color:var(--accent);
-    }
-    .chips{
+
+    .cta-row{
       display:flex;
       flex-wrap:wrap;
-      gap:4px;
-      margin-top:4px;
-    }
-    .chip{
-      font-size:10px;
-      padding:3px 7px;
-      border-radius:999px;
-      border:1px solid #1f2937;
-      color:#9ca3af;
-      background:rgba(15,23,42,0.9);
-    }
-    .chip-wave{
-      border-color:rgba(34,197,94,0.8);
-      color:#bbf7d0;
-      background:rgba(22,163,74,0.15);
+      gap:0.6rem;
+      margin-bottom:0.9rem;
     }
 
-    .wave-line{
-      margin-top:4px;
-      font-size:11px;
-      color:#bbf7d0;
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-    }
-    .wave-number{
-      font-size:14px;
-      font-weight:800;
-      color:var(--wave);
-    }
-
-    .card-footer{
-      margin-top:8px;
-      display:flex;
-      justify-content:space-between;
-      gap:6px;
-    }
-    .btn-card{
-      flex:1;
+    .btn{
       border:none;
       border-radius:999px;
-      padding:7px 9px;
-      font-size:12px;
-      font-weight:600;
-      cursor:pointer;
-      display:flex;
+      padding:0.7rem 1.3rem;
+      font-size:0.9rem;
+      font-weight:700;
+      display:inline-flex;
       align-items:center;
-      justify-content:center;
-      gap:5px;
+      gap:0.4rem;
+      cursor:pointer;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg,#f97316,#ea580c);
+      color:#111827;
+      box-shadow:0 12px 30px rgba(249,115,22,0.8);
+    }
+
+    .btn-secondary{
+      background:rgba(15,23,42,0.9);
+      color:var(--muted);
+      border:1px solid rgba(148,163,184,0.75);
+    }
+
+    .hero-note{
+      font-size:0.8rem;
+      color:var(--muted);
+    }
+
+    /* HERO RIGHT CARD (PRIX) */
+    .hero-card{
+      border-radius:18px;
+      background:radial-gradient(circle at top left,rgba(249,115,22,0.2),transparent 60%);
+      border:1px solid rgba(148,163,184,0.7);
+      padding:1.1rem 1.2rem 1.25rem;
+    }
+
+    .hero-card-title{
+      font-size:0.85rem;
+      text-transform:uppercase;
+      letter-spacing:0.16em;
+      color:var(--muted);
+      margin-bottom:0.5rem;
+      font-weight:700;
+    }
+
+    .price-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:0.6rem;
+      margin-bottom:0.8rem;
+    }
+
+    @media (max-width:640px){
+      .price-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    }
+
+    .price-card{
+      border-radius:14px;
+      background:rgba(15,23,42,0.95);
+      border:1px solid rgba(148,163,184,0.8);
+      padding:0.6rem 0.7rem;
+      text-align:left;
+    }
+
+    .price-label{
+      font-size:0.75rem;
+      text-transform:uppercase;
+      letter-spacing:0.12em;
+      color:var(--muted);
+      margin-bottom:0.15rem;
+    }
+
+    .price-value{
+      font-size:1rem;
+      font-weight:800;
+      color:var(--accent-soft);
+    }
+
+    .price-hint{
+      font-size:0.7rem;
+      color:var(--muted);
+      margin-top:0.1rem;
+    }
+
+    .hero-card-info{
+      font-size:0.8rem;
+      color:var(--muted);
+      margin-top:0.4rem;
+      line-height:1.5;
+    }
+
+    /* SECTIONS */
+    .section{
+      padding:0.4rem 1.8rem 1.6rem;
+      border-top:1px solid rgba(15,23,42,1);
+      display:grid;
+      grid-template-columns:minmax(0,1.5fr) minmax(0,1.2fr);
+      gap:1.8rem;
+    }
+
+    @media (max-width:900px){
+      .section{grid-template-columns:1fr;padding:0.6rem 1.4rem 1.6rem;}
+    }
+
+    .section-title{
+      font-size:1.1rem;
+      font-weight:700;
+      margin-bottom:0.4rem;
+    }
+
+    .section-sub{
+      font-size:0.85rem;
+      color:var(--muted);
+      margin-bottom:0.8rem;
+    }
+
+    .section-text{
+      font-size:0.9rem;
+      line-height:1.7;
+      color:var(--ink);
+    }
+
+    .list{
+      margin-top:0.6rem;
+      font-size:0.9rem;
+      color:var(--ink);
+      list-style:none;
+    }
+
+    .list li{
+      margin-bottom:0.3rem;
+    }
+
+    .list li::before{
+      content:"• ";
+      color:var(--accent-soft);
+    }
+
+    .card-soft{
+      border-radius:16px;
+      background:#020617;
+      border:1px solid rgba(51,65,85,0.9);
+      padding:0.9rem 1rem;
+      font-size:0.85rem;
+      color:var(--muted);
+    }
+
+    /* CONTACT / CTA */
+    .contact-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:0.7rem;
+      margin-top:0.6rem;
+      margin-bottom:0.6rem;
+    }
+
+    @media (max-width:640px){
+      .contact-grid{grid-template-columns:1fr;}
+    }
+
+    .contact-card{
+      border-radius:14px;
+      background:#020617;
+      border:1px solid rgba(51,65,85,0.9);
+      padding:0.65rem 0.75rem;
+      font-size:0.85rem;
+    }
+
+    .contact-name{
+      font-weight:700;
+      margin-bottom:0.1rem;
+    }
+
+    .contact-label{
+      font-size:0.75rem;
+      color:var(--muted);
+      margin-bottom:0.25rem;
+    }
+
+    .contact-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.4rem;
+      margin-top:0.3rem;
+    }
+
+    .chip{
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.7);
+      padding:0.2rem 0.6rem;
+      font-size:0.75rem;
+      display:inline-flex;
+      align-items:center;
+      gap:0.3rem;
+      color:var(--muted);
       text-decoration:none;
     }
-    .btn-primary{
-      background:linear-gradient(135deg,var(--accent),#fbbf24);
-      color:#111827;
-      box-shadow:0 8px 16px rgba(250,204,21,0.35);
-    }
-    .btn-wa{
-      background:rgba(22,163,74,0.14);
-      border:1px solid rgba(34,197,94,0.9);
-      color:#bbf7d0;
+
+    .chip-primary{
+      border-color:rgba(56,189,248,1);
+      color:#e0f2fe;
+      background:rgba(15,23,42,0.9);
     }
 
-    /* Résumé bas */
-    .bottom-note{
-      margin-top:6px;
-      font-size:11px;
+    /* FOOTER */
+    footer{
+      padding:0.8rem 1.4rem 1.2rem;
+      border-top:1px solid rgba(15,23,42,1);
+      font-size:0.8rem;
       color:var(--muted);
-      display:flex;
-      justify-content:space-between;
-      gap:8px;
-      flex-wrap:wrap;
+      text-align:center;
     }
 
-    @media (max-width:720px){
-      header{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-      .header-right{
-        align-items:flex-start;
-        text-align:left;
-      }
+    footer strong{
+      color:var(--accent-soft);
     }
   </style>
 </head>
@@ -357,314 +422,175 @@
   <!-- HEADER -->
   <header>
     <div class="brand">
-      <div class="logo-badge">L</div>
-      <div class="brand-text">
-        <span class="label">DIGIY LOC</span>
-        <span class="title">HUB DIRECT PROPRIÉTAIRES</span>
-        <span class="subtitle">Appartements & villas • 0% commission • Paiement direct par Wave</span>
-      </div>
-    </div>
-    <div class="header-right">
-      <div class="pill-row">
-        <div class="pill">
-          <span class="dot"></span>
-          0% commission plateforme
-        </div>
-        <div class="pill pill-gold">
-          Paiement direct propriétaire (Wave)
-        </div>
-      </div>
+      <div class="brand-logo">∞</div>
       <div>
-        Compare sur Booking si tu veux, ici tu vois <strong>le prix direct</strong> sans intermédiaire.
+        <div class="brand-text-title">CHEZ ASTOU & BAPTISTE</div>
+        <div class="brand-text-sub">SALY JOSEPH • DIGIY LOC</div>
       </div>
     </div>
+    <div class="digiy-pill">0% COMMISSION • RÉSERVATION DIRECTE</div>
   </header>
 
-  <!-- FILTRES SIMPLES -->
-  <section class="filters">
-    <label for="filterCity">Ville :</label>
-    <select id="filterCity">
-      <option value="all">Toutes</option>
-      <option value="Saly">Saly</option>
-      <option value="Ngaparou">Ngaparou</option>
-      <option value="Somone">Somone</option>
-      <option value="Dakar">Dakar</option>
-    </select>
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <h1 class="hero-title">
+        Un havre de calme à <span>Saly Joseph</span>
+      </h1>
+      <p class="hero-tagline">
+        <strong>Chez Astou & Baptiste</strong>, on pose les valises… et on respire.
+        Un appartement chaleureux, propre, pensé pour se reposer, télétravailler,
+        ou simplement profiter de Saly sans pression.
+      </p>
 
-    <label for="filterSearch">Recherche :</label>
-    <input id="filterSearch" type="text" placeholder="Nom, proprio, mot-clé…">
+      <div class="hero-location">
+        <span>📍 <strong>Saly Joseph</strong></span>
+        <span>🏫 Non loin de l'école française</span>
+        <span>🌍 Saly • Sénégal</span>
+      </div>
 
-    <span style="margin-left:auto;font-size:11px;color:var(--muted);" id="resultCount">
-      — logements affichés
-    </span>
+      <div class="badges-row">
+        <span class="badge badge-accent">DIGIY LOC — 0% COM</span>
+        <span class="badge">Propriétaires joignables en direct</span>
+        <span class="badge">WhatsApp + Appels</span>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn btn-primary"
+           href="https://wa.me/221771342889?text=Bonjour%2C%20je%20souhaite%20r%C3%A9server%20%22Chez%20Astou%20%26%20Baptiste%22%20%C3%A0%20Saly%20Joseph.%20Dates%20:%20___%20Nombre%20de%20personnes%20:%20___">
+          Réserver avec Astou (WhatsApp) →
+        </a>
+        <a class="btn btn-secondary"
+           href="https://wa.me/221778765785?text=Bonjour%2C%20je%20viens%20via%20DIGIY%20pour%20%22Chez%20Astou%20%26%20Baptiste%22%20%C3%A0%20Saly.">
+          Parler à Baptiste →
+        </a>
+      </div>
+
+      <div class="hero-note">
+        ✅ Réservation directe propriétaire • Pas de frais cachés • Informations confirmées par DIGIY LOC.
+      </div>
+    </div>
+
+    <!-- HERO RIGHT CARD: PRIX -->
+    <aside class="hero-card">
+      <div class="hero-card-title">Grille de tarifs (référence)</div>
+      <div class="price-grid">
+        <div class="price-card">
+          <div class="price-label">Standard / Jour</div>
+          <div class="price-value">30 000 F</div>
+          <div class="price-hint">Selon période</div>
+        </div>
+        <div class="price-card">
+          <div class="price-label">Semaine</div>
+          <div class="price-value">175 000 F</div>
+          <div class="price-hint">7 nuits</div>
+        </div>
+        <div class="price-card">
+          <div class="price-label">Mois</div>
+          <div class="price-value">550 000 F</div>
+          <div class="price-hint">Selon saison</div>
+        </div>
+      </div>
+      <div class="hero-card-info">
+        💬 Les tarifs peuvent varier selon la saison, le nombre de personnes et la durée.
+        Le prix exact est confirmé avec Astou ou Baptiste au moment de la demande.
+      </div>
+    </aside>
   </section>
 
-  <!-- GRILLE LOGEMENTS -->
-  <section class="grid" id="grid"></section>
+  <!-- SECTION DESCRIPTION + CONTACT -->
+  <section class="section">
+    <div>
+      <h2 class="section-title">L'appartement</h2>
+      <p class="section-sub">Un lieu simple, propre, humain — pensé pour se sentir bien dès la première nuit.</p>
+      <p class="section-text">
+        Chez Astou & Baptiste, on est à la croisée entre le confort moderne et la vie de quartier sénégalaise.
+        Idéal pour un couple, une petite famille, un ami de passage, ou quelqu'un qui vient se poser
+        quelques semaines à Saly pour respirer, créer, télétravailler ou préparer un projet.
+      </p>
 
-  <!-- NOTE BAS -->
-  <section class="bottom-note">
-    <div>
-      DIGIY LOC — Les prix affichés sont proposés <strong>directement par les propriétaires</strong>.  
-      Tu peux vérifier sur Booking / Airbnb, ici tu payes en direct, sans commission OTA.
+      <ul class="list">
+        <li>Quartier calme, à <strong>Saly Joseph</strong>, non loin de l'école française.</li>
+        <li>Accès rapide aux commerces, plage, taxi, points Wave / OM.</li>
+        <li>Accueil chaleureux, propriétaires joignables, flexibles selon les horaires.</li>
+        <li>Possibilité de séjour à la <strong>journée, semaine ou au mois</strong>.</li>
+      </ul>
     </div>
+
     <div>
-      Propriétaire intéressé ? Contacte le HUB DIGIY pour être référencé dans la grille (Wave first).
+      <h2 class="section-title">Contacts directs</h2>
+      <p class="section-sub">Deux numéros, deux personnes, une seule intention : bien te recevoir.</p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-name">Astou</div>
+          <div class="contact-label">Gestion & accueil</div>
+          <div>📞 <strong>+221 77 134 28 89</strong></div>
+          <div class="contact-actions">
+            <a class="chip chip-primary"
+               href="https://wa.me/221771342889?text=Bonjour%2C%20je%20souhaite%20des%20infos%20sur%20%22Chez%20Astou%20%26%20Baptiste%22%20%C3%A0%20Saly.">
+              💬 WhatsApp
+            </a>
+            <a class="chip" href="tel:+221771342889">📞 Appeler</a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-name">Baptiste</div>
+          <div class="contact-label">Coordination & suivi</div>
+          <div>📞 <strong>+221 77 876 57 85</strong></div>
+          <div class="contact-actions">
+            <a class="chip chip-primary"
+               href="https://wa.me/221778765785?text=Bonjour%2C%20je%20viens%20via%20DIGIY%20pour%20la%20location%20%C3%A0%20Saly%20Joseph.">
+              💬 WhatsApp
+            </a>
+            <a class="chip" href="tel:+221778765785">📞 Appeler</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-soft">
+        ℹ️ <strong>Conseil DIGIY :</strong> quand tu écris sur WhatsApp, précise bien
+        <strong>tes dates</strong>, <strong>le nombre de personnes</strong> et si tu connais un peu Saly ou pas.
+        Ça permet à Astou & Baptiste de mieux t’orienter (trajet, taxi, besoins spéciaux…).
+      </div>
     </div>
   </section>
+
+  <!-- SECTION PRATIQUE -->
+  <section class="section">
+    <div>
+      <h2 class="section-title">Infos pratiques</h2>
+      <p class="section-sub">Ce qu’il faut savoir avant de venir.</p>
+      <ul class="list">
+        <li>Situation : <strong>Quartier Saly Joseph</strong>, non loin de l'école française.</li>
+        <li>Accès : taxi, VTC, chauffeur DIGIY DRIVER possible sur demande.</li>
+        <li>Paiement : selon accord, en espèces ou mobile money (Wave / OM…) avec les propriétaires.</li>
+        <li>Check-in / Check-out : à définir directement avec Astou & Baptiste selon ton heure d’arrivée.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="section-title">DIGIY LOC — Fiche certifiée</h2>
+      <p class="section-sub">Fiche hébergeur gérée dans le HUB DIGIYLYFE.</p>
+      <p class="section-text">
+        Cette page est reliée au HUB DIGIYLYFE et à DIGIY LOC.  
+        Les infos (prix de référence, contacts, localisation) sont saisies par le propriétaire
+        et peuvent être ajustées selon la saison et la demande.
+      </p>
+      <div class="card-soft" style="margin-top:0.6rem;">
+        🦅 <strong>0% commission :</strong> ici, tu parles en direct avec les propriétaires.  
+        DIGIY ne touche aucune commission sur ta réservation.  
+        C’est du <strong>pro → client</strong>, sans intermédiaire.
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p><strong>DIGIY LOC</strong> — Location directe, 0% commission, hébergeurs enracinés à Saly.</p>
+    <p>Fiche gérée dans le <strong>DIGIY HUB — Aigle Royal</strong>. Made in Sénégal 🦅</p>
+  </footer>
 </div>
-
-<script>
-  // ===== DONNÉES LOGEMENTS (CHEZ BAPTISTE + FAUX PROPRIOS POUR MEUBLER) =====
-  const ACCOMMODATIONS = [
-    {
-      id: "chez-baptiste",
-      name: "CHEZ BAPTISTE — Appartement",
-      city: "Saly",
-      country: "Sénégal",
-      owner: "Jean Baptiste Beauville",
-      priceFrom: 30000,
-      maxPersons: 4,
-      bedrooms: 2,
-      bathrooms: 1,
-      wavePhone: "+221771342889",
-      whatsapp: "221771342889",
-      image: "https://digiylyfe.com/wp-content/uploads/2025/06/042-BAPTISTE.png",
-      link: "https://beauville.github.io/chez-baptiste-digiy-loc/", // ajuste si besoin
-      tags: ["Quartier calme","Sénélec en sus","Réservation directe","Wave uniquement"],
-      featured: true
-    },
-    {
-      id: "residence-soleil",
-      name: "Résidence Soleil — Studio vue jardin",
-      city: "Ngaparou",
-      country: "Sénégal",
-      owner: "Awa & Famille",
-      priceFrom: 25000,
-      maxPersons: 2,
-      bedrooms: 1,
-      bathrooms: 1,
-      wavePhone: "+221770000001",
-      whatsapp: "221770000001",
-      image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg",
-      link: "#",
-      tags: ["2 pers","Proche plage","Wi-Fi","Parking"],
-      featured: false
-    },
-    {
-      id: "villa-mbotay",
-      name: "Villa Mbotay — Piscine privée",
-      city: "Somone",
-      country: "Sénégal",
-      owner: "Mamadou & Khady",
-      priceFrom: 85000,
-      maxPersons: 8,
-      bedrooms: 4,
-      bathrooms: 3,
-      wavePhone: "+221770000002",
-      whatsapp: "221770000002",
-      image: "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg",
-      link: "#",
-      tags: ["Piscine privée","Famille & amis","Climatisation"],
-      featured: false
-    },
-    {
-      id: "dakarlibre6",
-      name: "Appart Dakar Liberté 6 — Standing",
-      city: "Dakar",
-      country: "Sénégal",
-      owner: "Monsieur Ndiaye",
-      priceFrom: 60000,
-      maxPersons: 4,
-      bedrooms: 2,
-      bathrooms: 2,
-      wavePhone: "+221770000003",
-      whatsapp: "221770000003",
-      image: "https://images.pexels.com/photos/439391/pexels-photo-439391.jpeg",
-      link: "#",
-      tags: ["Dakar centre","Climatisation","Wi-Fi","Parking sous-sol"],
-      featured: false
-    },
-    {
-      id: "yoff-breeze",
-      name: "Yoff Breeze — Bord de mer",
-      city: "Dakar",
-      country: "Sénégal",
-      owner: "Fatou",
-      priceFrom: 40000,
-      maxPersons: 3,
-      bedrooms: 1,
-      bathrooms: 1,
-      wavePhone: "+221770000004",
-      whatsapp: "221770000004",
-      image: "https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg",
-      link: "#",
-      tags: ["Vue mer","Surf spot","Navette aéroport"],
-      featured: false
-    },
-    {
-      id: "popenguine-lodge",
-      name: "Popenguine Lodge — Eco maison",
-      city: "Ngaparou",
-      country: "Sénégal",
-      owner: "Collectif Popenguine",
-      priceFrom: 28000,
-      maxPersons: 3,
-      bedrooms: 1,
-      bathrooms: 1,
-      wavePhone: "+221770000005",
-      whatsapp: "221770000005",
-      image: "https://images.pexels.com/photos/1571458/pexels-photo-1571458.jpeg",
-      link: "#",
-      tags: ["Eco-friendly","Calme","Long séjour"],
-      featured: false
-    }
-  ];
-
-  const gridEl        = document.getElementById("grid");
-  const filterCityEl  = document.getElementById("filterCity");
-  const filterSearchEl= document.getElementById("filterSearch");
-  const resultCountEl = document.getElementById("resultCount");
-
-  function formatPrice(n){
-    return (n||0).toLocaleString("fr-FR") + " F / nuit";
-  }
-
-  function matchFilters(acc){
-    const city = filterCityEl.value;
-    const q    = (filterSearchEl.value || "").toLowerCase().trim();
-
-    if(city !== "all" && acc.city !== city) return false;
-    if(!q) return true;
-
-    const haystack = [
-      acc.name,
-      acc.city,
-      acc.owner,
-      ...(acc.tags || [])
-    ].join(" ").toLowerCase();
-    return haystack.includes(q);
-  }
-
-  function renderGrid(){
-    gridEl.innerHTML = "";
-    const filtered = ACCOMMODATIONS.filter(matchFilters);
-
-    resultCountEl.textContent = filtered.length + " logement(s) affiché(s)";
-
-    filtered
-      .sort((a,b)=> (b.featured?1:0) - (a.featured?1:0))
-      .forEach(acc=>{
-        const card = document.createElement("article");
-        card.className = "card";
-
-        // Header image
-        const header = document.createElement("div");
-        header.className = "card-header-img";
-        const img = document.createElement("img");
-        img.src = acc.image;
-        img.alt = acc.name + " — " + acc.city;
-        header.appendChild(img);
-
-        const badgeCity = document.createElement("div");
-        badgeCity.className = "badge-city";
-        badgeCity.textContent = acc.city + " · " + acc.country;
-        header.appendChild(badgeCity);
-
-        const badgeDirect = document.createElement("div");
-        badgeDirect.className = "badge-direct";
-        badgeDirect.innerHTML = "<span>0% comm.</span>";
-        header.appendChild(badgeDirect);
-
-        card.appendChild(header);
-
-        // Body
-        const body = document.createElement("div");
-        body.className = "card-body";
-
-        const owner = document.createElement("div");
-        owner.className = "card-owner";
-        owner.textContent = "Géré par " + acc.owner;
-        body.appendChild(owner);
-
-        const title = document.createElement("div");
-        title.className = "card-title";
-        title.textContent = acc.name;
-        body.appendChild(title);
-
-        const meta = document.createElement("div");
-        meta.className = "card-meta";
-        meta.textContent = `${acc.maxPersons} pers max · ${acc.bedrooms} ch. · ${acc.bathrooms} sdb`;
-        body.appendChild(meta);
-
-        const price = document.createElement("div");
-        price.className = "price-line";
-        price.textContent = "À partir de " + formatPrice(acc.priceFrom);
-        body.appendChild(price);
-
-        const chips = document.createElement("div");
-        chips.className = "chips";
-        (acc.tags || []).forEach(t=>{
-          const c = document.createElement("span");
-          c.className = "chip";
-          c.textContent = t;
-          chips.appendChild(c);
-        });
-        const cWave = document.createElement("span");
-        cWave.className = "chip chip-wave";
-        cWave.textContent = "Paiement Wave direct";
-        chips.appendChild(cWave);
-        body.appendChild(chips);
-
-        const waveLine = document.createElement("div");
-        waveLine.className = "wave-line";
-        const w1 = document.createElement("div");
-        w1.textContent = "Numéro Wave propriétaire :";
-        const w2 = document.createElement("div");
-        w2.className = "wave-number";
-        w2.textContent = acc.wavePhone;
-        waveLine.appendChild(w1);
-        waveLine.appendChild(w2);
-        body.appendChild(waveLine);
-
-        // Footer boutons
-        const footer = document.createElement("div");
-        footer.className = "card-footer";
-
-        const btnFiche = document.createElement("a");
-        btnFiche.className = "btn-card btn-primary";
-        btnFiche.textContent = "Voir la fiche";
-        btnFiche.href = acc.link || "#";
-        btnFiche.target = acc.link && acc.link !== "#" ? "_blank" : "_self";
-        footer.appendChild(btnFiche);
-
-        const btnWa = document.createElement("button");
-        btnWa.className = "btn-card btn-wa";
-        btnWa.type = "button";
-        btnWa.textContent = "WhatsApp";
-        btnWa.addEventListener("click", ()=>{
-          const waId = acc.whatsapp || "";
-          const txt = encodeURIComponent(
-            `Bonjour, je suis intéressé par ${acc.name} à ${acc.city}. Pouvez-vous me donner les disponibilités et tarifs ?`
-          );
-          if(waId){
-            window.open(`https://wa.me/${waId}?text=${txt}`,"_blank");
-          }
-        });
-        footer.appendChild(btnWa);
-
-        body.appendChild(footer);
-        card.appendChild(body);
-
-        gridEl.appendChild(card);
-      });
-  }
-
-  filterCityEl.addEventListener("change", renderGrid);
-  filterSearchEl.addEventListener("input", renderGrid);
-
-  // INIT
-  renderGrid();
-</script>
 </body>
 </html>
