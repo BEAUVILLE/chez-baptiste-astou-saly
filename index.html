@@ -301,7 +301,6 @@
       }
     }
 
-    /* SECTION DÉTAILS & ÉQUIPEMENTS */
     .section{
       margin-top:1.4rem;
     }
@@ -324,7 +323,6 @@
       color:var(--accent-soft);
     }
 
-    /* CONTACT */
     .contact-grid{
       display:grid;
       grid-template-columns:1.5fr 1.5fr;
@@ -367,9 +365,11 @@
     }
   </style>
 </head>
+
 <body>
   <main class="page">
-    <!-- HEADER / HERO -->
+
+    <!-- HEADER -->
     <header class="hero">
       <div class="hero-header">
         <div class="hero-logo">∞</div>
@@ -392,27 +392,31 @@
       </div>
     </header>
 
-    <!-- BLOC PRIX + INFOS CLÉS -->
+    <!-- PRIX + INFO -->
     <section class="grid-2">
+      <!-- PRIX -->
       <div class="card">
         <h2>Tarifs & séjours</h2>
         <div class="price-main">À partir de 30 000 F / jour</div>
         <p class="price-note">Les tarifs s'adaptent à la durée et à la saison :</p>
+
         <ul class="price-list">
           <li><span>30 000 F / jour</span> — séjour standard</li>
           <li><span>175 000 F / semaine</span> — selon saison</li>
           <li><span>550 000 F / mois</span> — selon saison</li>
         </ul>
+
         <p class="price-note">
-          Un point GPS suffit : vous arrivez directement à la maison via votre application de navigation.
+          Un point GPS suffit pour trouver facilement la maison via votre application de navigation.
         </p>
-        <div class="badge-green">
-          ✅ Réservation en direct • Pas de frais cachés
-        </div>
+
+        <div class="badge-green">✅ Réservation en direct • Pas de frais cachés</div>
       </div>
 
+      <!-- BLOC CONTACT + MULTIMEDIA -->
       <div class="card">
         <h2>Infos rapides</h2>
+
         <div class="info-row">
           <div><span class="info-label">Quartier :</span> Saly Joseph</div>
           <div><span class="info-label">Ville :</span> Saly, Sénégal</div>
@@ -420,90 +424,77 @@
           <div><span class="info-label">Propriétaires :</span> Astou & Baptiste</div>
         </div>
 
-        <!-- BLOCS VIDÉO & PHOTO BIEN VISIBLES -->
+        <!-- MÉDIA -->
         <div class="media-block">
+
           <div class="media-line">
-            <div class="media-label">
-              <span class="emoji">🎥</span>
-              <span>Vidéo de présentation</span>
-            </div>
-            <a class="btn btn-primary" href="https://drive.google.com/file/d/1oEVpt1R7fWBAJnKZlPu_fp2gqS-Z1kni/view?usp=drive_link" target="_blank" rel="noopener">
-              Voir la vidéo →
-            </a>
+            <div class="media-label"><span class="emoji">🎥</span> <span>Vidéo de présentation</span></div>
+            <button class="btn btn-primary" onclick="openVideo()">Voir la vidéo →</button>
           </div>
 
           <div class="media-line">
-            <div class="media-label">
-              <span class="emoji">📸</span>
-              <span>Visuel DIGIY</span>
-            </div>
-            <a class="btn btn-outline" href="https://digiylyfe.com/wp-content/uploads/2025/06/042-BAPTISTE.png" target="_blank" rel="noopener">
-              Voir la photo →
-            </a>
+            <div class="media-label"><span class="emoji">📸</span> <span>Visuel DIGIY</span></div>
+            <button class="btn btn-outline" onclick="openPhoto()">Voir la photo →</button>
           </div>
 
           <div class="media-line">
-            <div class="media-label">
-              <span class="emoji">🌐</span>
-              <span>Fiche partenaire complète</span>
-            </div>
-            <a class="btn btn-outline" href="https://digiylyfe.com/partenaires-chez-baptiste/" target="_blank" rel="noopener">
-              Ouvrir la fiche DIGIY →
-            </a>
+            <div class="media-label"><span class="emoji">🌐</span> <span>Fiche partenaire complète</span></div>
+            <button class="btn btn-outline" onclick="openPartnerForm('loc')">Ouvrir fiche DIGIY →</button>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- DÉTAILS & ÉQUIPEMENTS -->
+    <!-- DÉTAILS -->
     <section class="section">
       <h2>Ambiance & équipements</h2>
       <p>
         CHEZ ASTOU & BAPTISTE, c'est une maison tenue avec soin, pensée pour que vous vous sentiez
-        vraiment chez vous : propre, calme, chaleureuse, avec l’accueil humain au cœur.
+        vraiment chez vous : propre, calme, chaleureuse, avec un accueil humain au cœur.
       </p>
 
       <ul class="equip-list">
-        <li>Salon convivial pour se poser en famille</li>
+        <li>Salon convivial</li>
         <li>Chambres confortables</li>
         <li>Cuisine équipée</li>
-        <li>Espaces de vie adaptés au télétravail</li>
-        <li>Environnement calme à Saly Joseph</li>
+        <li>Espace calme pour télétravail</li>
+        <li>Quartier paisible</li>
         <li>Accès facile depuis la route principale</li>
       </ul>
     </section>
 
-    <!-- CONTACT DIRECT -->
+    <!-- CONTACT -->
     <section class="section">
       <h2>Réserver en direct</h2>
+
       <div class="contact-grid">
         <div>
-          <p class="contact-line">
-            📍 <strong>Adresse :</strong> Quartier Saly Joseph, non loin de l'école française, Saly, Sénégal.
-          </p>
-          <p class="contact-line">
-            📞 <strong>Téléphone :</strong> +221 77 876 57 85
-          </p>
+          <p class="contact-line">📍 <strong>Adresse :</strong> Saly Joseph, près de l'école française.</p>
+          <p class="contact-line">📞 <strong>Téléphone :</strong> +221 77 876 57 85</p>
         </div>
+
         <div>
           <p class="contact-line">
-            Parlez directement aux propriétaires pour vos dates, votre budget et vos besoins spécifiques.
+            Contactez les propriétaires directement pour vos dates et vos besoins spécifiques.
           </p>
+
           <div class="contact-cta">
-            <a class="btn btn-call" href="tel:+221778765785">📞 Appeler maintenant</a>
-            <a class="btn btn-wa" href="https://wa.me/221778765785" target="_blank" rel="noopener">
-              💬 WhatsApp direct
-            </a>
+            <a class="btn btn-call" href="tel:+221778765785">📞 Appeler</a>
+            <a class="btn btn-wa" href="https://wa.me/221778765785" target="_blank">💬 WhatsApp</a>
           </div>
         </div>
       </div>
 
       <p class="disclaimer">
-        Cette vitrine est propulsée par DIGIY LOC (0% commission, paiement direct au propriétaire).  
-        Les tarifs peuvent varier en fonction de la saison et du nombre de personnes.
+        Propulsé par DIGIY LOC — Location en direct, 0% commission.
       </p>
     </section>
+
   </main>
+
+  <!-- JS externalisé -->
   <script src="html.js"></script>
+
 </body>
 </html>
