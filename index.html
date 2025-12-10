@@ -2,499 +2,950 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>CHEZ BAPTISTE — Saly Joseph • DIGIY LOC</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="CHEZ ASTOU & BAPTISTE — Maison chaleureuse à Saly Joseph, non loin de l'école française. Location courte ou longue durée, dès 30 000 F/jour. Réservez en direct, 0% commission.">
+  <title>Planning DIGIY LOC — Chez Baptiste</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root{
-      --bg:#020617;
-      --bg-soft:#020818;
-      --card:#030712;
-      --accent-main:#f97316;
-      --accent-soft:#fed7aa;
-      --accent-green:#22c55e;
-      --ink:#f9fafb;
+      --bg:#022c22;          /* Vert profond Sénégal */
+      --bg-soft:#064e3b;
+      --card:#052e16;
+      --accent:#facc15;      /* Or DIGIY */
+      --accent-soft:rgba(250,204,21,0.14);
+      --text:#f9fafb;
       --muted:#cbd5f5;
-      --line:#1f2937;
-      --shadow-soft:0 20px 45px rgba(15,23,42,0.9);
+      --line:#0f172a;
+
+      --free:#064e3b;        /* Libre DIGIY */
+      --digiy:#16a34a;       /* Réservé DIGIY */
+      --ota:#b91c1c;         /* Booking / OTA */
+      --closed:#4b5563;      /* Fermé */
+
+      --font-main: -apple-system,BlinkMacSystemFont,"Outfit","Manrope",system-ui,sans-serif;
     }
 
     *{
+      box-sizing:border-box;
       margin:0;
       padding:0;
-      box-sizing:border-box;
     }
 
     body{
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
-      background:
-        radial-gradient(circle at top,#1f2937,transparent 60%),
-        radial-gradient(circle at bottom,#0b1120,transparent 55%),
-        var(--bg);
-      color:var(--ink);
       min-height:100vh;
+      background:
+        radial-gradient(circle at top,#16a34a33 0,transparent 55%),
+        linear-gradient(135deg,#022c22,#065f46);
+      color:var(--text);
+      font-family:var(--font-main);
+      padding:16px 10px 22px;
       display:flex;
       justify-content:center;
-      padding:1.5rem 1rem 2rem;
     }
 
     .page{
       width:100%;
-      max-width:900px;
-      background:rgba(9,9,20,0.96);
-      border-radius:24px;
-      border:1px solid rgba(148,163,184,0.6);
-      box-shadow:var(--shadow-soft);
-      padding:1.5rem 1.4rem 2rem;
+      max-width:1040px;
     }
 
-    @media (min-width:768px){
-      body{padding:2.5rem 1.5rem;}
-      .page{padding:2.2rem 2rem 2.4rem;}
+    /* HEADER */
+    .header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
     }
 
-    /* TITRES & TEXTE — PLUS GROS SUR MOBILE */
-    h1{
-      font-size:1.9rem;
-      line-height:1.2;
-      margin-bottom:0.4rem;
+    .header-left{
+      display:flex;
+      gap:10px;
+      align-items:center;
     }
 
-    h2{
-      font-size:1.3rem;
-      margin-bottom:0.6rem;
+    .logo{
+      width:44px;
+      height:44px;
+      border-radius:16px;
+      background:radial-gradient(circle at 25% 10%,#ecfeff,#22c55e);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 0 24px rgba(16,185,129,0.8);
+      color:#022c22;
+      font-weight:900;
+      font-size:20px;
     }
 
-    p,li,span,div{
-      font-size:0.98rem;
+    .title-block h1{
+      font-size:20px;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      font-weight:800;
     }
 
-    @media (max-width:480px){
-      body{font-size:1.05rem;}
-      h1{font-size:2.1rem;}
-      h2{font-size:1.4rem;}
-      p,li,span,div{font-size:1.02rem;}
+    .title-block .subtitle{
+      font-size:14px;
+      color:var(--muted);
+      margin-top:4px;
+    }
+
+    .header-right{
+      text-align:right;
+      font-size:13px;
+      color:var(--muted);
     }
 
     .badge{
       display:inline-flex;
       align-items:center;
-      gap:0.4rem;
-      padding:0.3rem 0.7rem;
+      gap:6px;
+      padding:4px 10px;
       border-radius:999px;
-      font-size:0.78rem;
+      border:1px solid rgba(52,211,153,0.7);
+      background:rgba(6,95,70,0.6);
+      font-size:11px;
       text-transform:uppercase;
-      letter-spacing:0.14em;
-      border:1px solid rgba(252,211,77,0.9);
-      background:rgba(251,191,36,0.1);
-      color:var(--accent-soft);
-      margin-bottom:0.7rem;
+      letter-spacing:0.12em;
+      margin-bottom:4px;
     }
 
-    .hero-header{
-      display:flex;
-      gap:1rem;
-      align-items:flex-start;
-      margin-bottom:1.2rem;
+    /* CARD GLOBALE */
+    .card{
+      background:linear-gradient(145deg,rgba(5,46,22,0.98),rgba(6,95,70,0.96));
+      border-radius:22px;
+      border:1px solid rgba(16,185,129,0.65);
+      padding:14px 14px 16px;
+      box-shadow:
+        0 26px 70px rgba(0,0,0,0.85),
+        0 0 0 1px rgba(15,23,42,0.7);
     }
 
-    .hero-logo{
-      width:54px;
-      height:54px;
-      border-radius:18px;
-      background:radial-gradient(circle at 30% 15%,#fef3c7,#f97316);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:1.7rem;
-      font-weight:900;
-      color:#111827;
-      box-shadow:0 14px 30px rgba(249,115,22,0.8);
-    }
-
-    .hero-subtitle{
-      color:var(--muted);
-      font-size:0.96rem;
-    }
-
-    .tagline{
-      margin-top:0.4rem;
-      color:var(--accent-soft);
-      font-weight:600;
-    }
-
-    .pill-row{
+    /* BARRE DU HAUT : date + navigation */
+    .top-row{
       display:flex;
       flex-wrap:wrap;
-      gap:0.4rem;
-      margin:0.4rem 0 1.1rem;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:10px;
     }
 
-    .pill{
-      padding:0.25rem 0.6rem;
+    .date-range-title{
+      font-size:15px;
+      font-weight:700;
+    }
+
+    .date-range-sub{
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .nav-buttons{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    button{
+      font-family:var(--font-main);
+    }
+
+    .btn{
       border-radius:999px;
-      border:1px solid rgba(148,163,184,0.7);
-      font-size:0.78rem;
+      border:1px solid rgba(148,163,184,0.4);
+      background:rgba(15,23,42,0.75);
+      color:var(--text);
+      padding:8px 13px;
+      font-size:13px;
+      font-weight:600;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+    }
+    .btn:hover{
+      border-color:var(--accent);
+      box-shadow:0 0 14px rgba(250,204,21,0.35);
+    }
+    .btn-ghost{
+      background:transparent;
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,#facc15,#eab308);
+      color:#022c22;
+      border-color:rgba(250,204,21,0.75);
+      box-shadow:0 10px 26px rgba(250,204,21,0.6);
+    }
+
+    /* LÉGENDE */
+    .legend{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:10px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .legend-item{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:4px 8px;
+      border-radius:999px;
+      background:rgba(15,23,42,0.8);
+      border:1px solid rgba(148,163,184,0.5);
+    }
+
+    .legend-color{
+      width:14px;
+      height:14px;
+      border-radius:4px;
+    }
+
+    .lg-free{background:var(--free);}
+    .lg-digiy{background:var(--digiy);}
+    .lg-ota{background:var(--ota);}
+    .lg-closed{background:var(--closed);}
+
+    /* PLANNING TABLE SCROLLABLE */
+    .planning-wrapper{
+      margin-top:8px;
+      border-radius:18px;
+      border:1px solid rgba(15,23,42,0.9);
+      background:rgba(15,23,42,0.85);
+      overflow:hidden;
+    }
+
+    .planning-scroll{
+      width:100%;
+      overflow-x:auto;
+    }
+
+    table{
+      border-collapse:collapse;
+      width:100%;
+      min-width:720px;
+    }
+
+    th, td{
+      border-bottom:1px solid rgba(31,41,55,0.9);
+      border-right:1px solid rgba(31,41,55,0.9);
+    }
+
+    th{
+      background:rgba(15,23,42,0.95);
+      font-size:13px;
+      font-weight:700;
+      padding:10px 8px;
+      text-align:center;
+      position:sticky;
+      top:0;
+      z-index:2;
+    }
+
+    .col-room{
+      min-width:160px;
+      text-align:left;
+      position:sticky;
+      left:0;
+      z-index:3;
+      background:rgba(15,23,42,0.98);
+    }
+
+    .room-name{
+      font-size:14px;
+      font-weight:700;
+    }
+    .room-sub{
+      font-size:12px;
+      color:var(--muted);
+      margin-top:2px;
+    }
+
+    .day-label{
+      font-size:12px;
       text-transform:uppercase;
       letter-spacing:0.12em;
       color:var(--muted);
     }
-
-    .pill-strong{
-      border-color:rgba(34,197,94,1);
-      color:#bbf7d0;
-      background:rgba(22,163,74,0.24);
-    }
-
-    .grid-2{
-      display:grid;
-      grid-template-columns:2.1fr 1.4fr;
-      gap:1.2rem;
-      margin-bottom:1.4rem;
-    }
-
-    @media (max-width:768px){
-      .grid-2{grid-template-columns:1fr;}
-    }
-
-    .card{
-      background:linear-gradient(145deg,#020617,#02081a);
-      border-radius:18px;
-      border:1px solid rgba(31,41,55,0.95);
-      padding:1rem 1rem 1.1rem;
-    }
-
-    @media (min-width:768px){
-      .card{padding:1.1rem 1.3rem 1.2rem;}
-    }
-
-    .price-main{
-      font-size:1.35rem;
-      font-weight:800;
-      color:var(--accent-soft);
-      margin-bottom:0.5rem;
-    }
-
-    .price-note{
-      font-size:0.9rem;
-      color:var(--muted);
-      margin-bottom:0.6rem;
-    }
-
-    .price-list{
-      list-style:none;
-      display:flex;
-      flex-direction:column;
-      gap:0.2rem;
-      margin-bottom:0.4rem;
-    }
-
-    .price-list li{
-      font-weight:600;
-    }
-
-    .price-list li span{
-      color:var(--accent-soft);
+    .day-date{
+      font-size:13px;
       font-weight:700;
     }
 
-    .info-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:0.6rem 1.2rem;
-      margin-top:0.6rem;
-      font-size:0.9rem;
-      color:var(--muted);
+    td{
+      padding:6px 4px;
+      text-align:center;
     }
 
-    .info-label{
-      font-weight:600;
-      color:var(--ink);
-    }
-
-    .badge-green{
-      display:inline-flex;
-      align-items:center;
-      gap:0.4rem;
-      padding:0.28rem 0.6rem;
-      border-radius:999px;
-      border:1px solid rgba(34,197,94,0.9);
-      background:rgba(22,163,74,0.25);
-      font-size:0.8rem;
-      color:#bbf7d0;
-      font-weight:600;
-      margin-top:0.5rem;
-    }
-
-    /* BLOCS VIDÉO & PHOTO — BIEN VISIBLES */
-    .media-block{
-      margin-top:0.8rem;
-      border-top:1px dashed rgba(148,163,184,0.6);
-      padding-top:0.7rem;
-      display:flex;
-      flex-direction:column;
-      gap:0.6rem;
-    }
-
-    .media-line{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      gap:0.5rem;
-      padding:0.6rem 0.7rem;
-      border-radius:12px;
-      background:rgba(15,23,42,0.95);
-      border:1px solid rgba(55,65,81,0.9);
-    }
-
-    .media-label{
-      display:flex;
-      align-items:center;
-      gap:0.45rem;
-      font-weight:700;
-    }
-
-    .media-label span.emoji{
-      font-size:1.2rem;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      border:none;
-      border-radius:999px;
-      padding:0.55rem 1.2rem;
-      font-size:0.9rem;
-      font-weight:700;
+    .day-cell{
+      font-size:13px;
+      min-width:46px;
+      height:48px;
       cursor:pointer;
-      text-decoration:none;
-      white-space:nowrap;
-    }
-
-    .btn-primary{
-      background:linear-gradient(135deg,#f97316,#ea580c);
-      color:#111827;
-      box-shadow:0 10px 26px rgba(249,115,22,0.8);
-    }
-
-    .btn-outline{
-      background:transparent;
-      border:1px solid rgba(148,163,184,0.9);
-      color:var(--muted);
-    }
-
-    @media (max-width:480px){
-      .media-line{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-      .btn,
-      .btn-primary,
-      .btn-outline{
-        width:100%;
-        justify-content:center;
-        font-size:0.95rem;
-        padding:0.65rem 1.3rem;
-      }
-    }
-
-    .section{
-      margin-top:1.4rem;
-    }
-
-    .section p{
-      color:var(--muted);
-      line-height:1.7;
-    }
-
-    .equip-list{
-      list-style:none;
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-      gap:0.35rem 0.9rem;
-      margin-top:0.4rem;
-    }
-
-    .equip-list li::before{
-      content:"• ";
-      color:var(--accent-soft);
-    }
-
-    .contact-grid{
-      display:grid;
-      grid-template-columns:1.5fr 1.5fr;
-      gap:0.9rem;
-      margin-top:0.7rem;
-    }
-
-    @media (max-width:640px){
-      .contact-grid{grid-template-columns:1fr;}
-    }
-
-    .contact-line{
-      font-size:0.96rem;
-      color:var(--muted);
-    }
-
-    .contact-cta{
+      border-radius:10px;
+      padding:4px 3px;
       display:flex;
-      flex-wrap:wrap;
-      gap:0.6rem;
-      margin-top:0.6rem;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      gap:2px;
     }
 
-    .btn-call{
-      background:linear-gradient(135deg,#22c55e,#16a34a);
-      color:#022c22;
-    }
-
-    .btn-wa{
-      border:1px solid rgba(34,197,94,0.8);
+    .status-free{
+      background:rgba(6,95,70,0.7);
       color:#bbf7d0;
-      background:rgba(6,95,70,0.3);
     }
 
-    .disclaimer{
-      margin-top:1.2rem;
-      font-size:0.8rem;
+    .status-digiy{
+      background:rgba(22,163,74,0.9);
+      color:#ecfdf5;
+    }
+
+    .status-ota{
+      background:rgba(185,28,28,0.9);
+      color:#fee2e2;
+    }
+
+    .status-closed{
+      background:rgba(55,65,81,0.9);
+      color:#e5e7eb;
+    }
+
+    .cell-tag{
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:0.09em;
+      opacity:0.9;
+    }
+    .cell-main{
+      font-size:12px;
+      font-weight:600;
+    }
+
+    /* FORMULAIRE AJOUT RÉSA */
+    .form-section{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:1.8fr 1.2fr;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    @media(max-width:768px){
+      .form-section{
+        grid-template-columns:1fr;
+      }
+    }
+
+    .form-card{
+      border-radius:18px;
+      border:1px solid rgba(15,23,42,0.9);
+      background:rgba(15,23,42,0.9);
+      padding:12px 12px 14px;
+    }
+
+    .form-title{
+      font-size:14px;
+      text-transform:uppercase;
+      letter-spacing:0.14em;
       color:var(--muted);
-      opacity:0.85;
+      margin-bottom:6px;
+    }
+
+    .field-row{
+      display:grid;
+      grid-template-columns:1.4fr 1.4fr;
+      gap:8px;
+      margin-bottom:8px;
+    }
+
+    @media(max-width:640px){
+      .field-row{
+        grid-template-columns:1fr;
+      }
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+    }
+
+    label{
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+    }
+
+    .required::after{
+      content:"*";
+      margin-left:3px;
+      color:var(--accent);
+    }
+
+    input, select{
+      border-radius:10px;
+      border:1px solid rgba(55,65,81,0.9);
+      background:rgba(15,23,42,0.97);
+      color:var(--text);
+      padding:8px 9px;
+      font-size:14px;
+      outline:none;
+    }
+
+    input:focus, select:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 1px rgba(250,204,21,0.4);
+    }
+
+    .hint{
+      font-size:11px;
+      color:var(--muted);
+    }
+
+    #status{
+      margin-top:6px;
+      font-size:12px;
+      min-height:18px;
+    }
+    .status-ok{color:#bbf7d0;}
+    .status-error{color:#fecaca;}
+
+    /* PETIT RÉCAP */
+    .small-list{
+      font-size:13px;
+      color:var(--muted);
+      max-height:190px;
+      overflow:auto;
+    }
+
+    .small-row{
+      padding:6px 0;
+      border-bottom:1px dashed rgba(55,65,81,0.8);
+    }
+
+    .small-row strong{
+      color:var(--accent);
     }
   </style>
 </head>
-
 <body>
-  <main class="page">
+<div class="page">
 
-    <!-- HEADER -->
-    <header class="hero">
-      <div class="hero-header">
-        <div class="hero-logo">∞</div>
-        <div>
-          <div class="badge">DIGIY LOC — PARTENAIRE VITRINE</div>
-          <h1>CHEZ ASTOU & BAPTISTE</h1>
-          <div class="hero-subtitle">
-            Maison chaleureuse à <strong>Saly Joseph</strong>, non loin de l'école française.  
-            Idéale pour les séjours en famille, entre amis ou en télétravail au calme.
-          </div>
-          <div class="tagline">
-            0% commission • Réservation en direct avec les propriétaires.
-          </div>
-          <div class="pill-row">
-            <span class="pill pill-strong">Saly Joseph</span>
-            <span class="pill">Proche école française</span>
-            <span class="pill">Location courte & longue durée</span>
-          </div>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo">DL</div>
+      <div class="title-block">
+        <h1>DIGIY LOC — Chez Baptiste</h1>
+        <div class="subtitle">
+          Appartement 2 chambres • Capacité 4 personnes • 0% commission, réservation directe.
         </div>
       </div>
-    </header>
+    </div>
+    <div class="header-right">
+      <div class="badge">PLANNING 14 JOURS</div>
+      <div>Synchronisé avec Supabase DIGIY CORE</div>
+      <div style="font-size:12px;">Business : <strong>chez-baptiste</strong></div>
+    </div>
+  </header>
 
-    <!-- PRIX + INFO -->
-    <section class="grid-2">
-      <!-- PRIX -->
-      <div class="card">
-        <h2>Tarifs & séjours</h2>
-        <div class="price-main">À partir de 30 000 F / jour</div>
-        <p class="price-note">Les tarifs s'adaptent à la durée et à la saison :</p>
+  <main class="card">
+    <!-- TOP BAR -->
+    <div class="top-row">
+      <div>
+        <div class="date-range-title" id="dateRangeTitle">Planning</div>
+        <div class="date-range-sub" id="dateRangeSub"></div>
+      </div>
+      <div class="nav-buttons">
+        <button class="btn btn-ghost" id="btnPrev">◀ 14 jours</button>
+        <button class="btn btn-ghost" id="btnToday">Aujourd’hui</button>
+        <button class="btn btn-ghost" id="btnNext">14 jours ▶</button>
+      </div>
+    </div>
 
-        <ul class="price-list">
-          <li><span>30 000 F / jour</span> — séjour standard</li>
-          <li><span>175 000 F / semaine</span> — selon saison</li>
-          <li><span>550 000 F / mois</span> — selon saison</li>
-        </ul>
+    <!-- LÉGENDE -->
+    <div class="legend">
+      <div class="legend-item">
+        <span class="legend-color lg-free"></span>
+        <span>Libre (DIGIY)</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-color lg-digiy"></span>
+        <span>Réservé DIGIY</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-color lg-ota"></span>
+        <span>Occupé Booking / OTA</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-color lg-closed"></span>
+        <span>Fermé</span>
+      </div>
+    </div>
 
-        <p class="price-note">
-          Un point GPS suffit pour trouver facilement la maison via votre application de navigation.
-        </p>
+    <!-- PLANNING -->
+    <div class="planning-wrapper">
+      <div class="planning-scroll">
+        <table id="planningTable">
+          <!-- rempli par JS -->
+        </table>
+      </div>
+    </div>
 
-        <div class="badge-green">✅ Réservation en direct • Pas de frais cachés</div>
+    <!-- FORMULAIRE + RÉCAP -->
+    <section class="form-section">
+      <div class="form-card">
+        <div class="form-title">Ajouter une réservation</div>
+        <form id="resaForm">
+          <div class="field-row">
+            <div class="field">
+              <label for="guestName" class="required">Nom du client</label>
+              <input id="guestName" required placeholder="Ex. Famille Ndiaye">
+            </div>
+            <div class="field">
+              <label for="phone">Téléphone / WhatsApp</label>
+              <input id="phone" placeholder="+221 77 ...">
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="checkIn" class="required">Arrivée (check-in)</label>
+              <input id="checkIn" type="date" required>
+            </div>
+            <div class="field">
+              <label for="checkOut" class="required">Départ (check-out)</label>
+              <input id="checkOut" type="date" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="source" class="required">Source</label>
+              <select id="source" required>
+                <option value="digiy">DIGIY (direct)</option>
+                <option value="direct">Direct (téléphone)</option>
+                <option value="booking">Booking.com</option>
+                <option value="ota">Autre OTA</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="comment">Notes</label>
+              <input id="comment" placeholder="Ex. Arrivée tardive, 4 personnes…">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="btnSave">
+            🦅 Enregistrer dans Supabase
+          </button>
+
+          <div id="status"></div>
+          <div class="hint">
+            Les réservations sont enregistrées dans <strong>loc_reservations</strong> et bloquent l’appartement sur la période choisie.
+          </div>
+        </form>
       </div>
 
-      <!-- BLOC CONTACT + MULTIMEDIA -->
-      <div class="card">
-        <h2>Infos rapides</h2>
-
-        <div class="info-row">
-          <div><span class="info-label">Quartier :</span> Saly Joseph</div>
-          <div><span class="info-label">Ville :</span> Saly, Sénégal</div>
-          <div><span class="info-label">Contact :</span> +221 77 876 57 85</div>
-          <div><span class="info-label">Propriétaires :</span> Astou & Baptiste</div>
-        </div>
-
-        <!-- MÉDIA -->
-        <div class="media-block">
-
-          <div class="media-line">
-            <div class="media-label"><span class="emoji">🎥</span> <span>Vidéo de présentation</span></div>
-            <button class="btn btn-primary" onclick="openVideo()">Voir la vidéo →</button>
-          </div>
-
-          <div class="media-line">
-            <div class="media-label"><span class="emoji">📸</span> <span>Visuel DIGIY</span></div>
-            <button class="btn btn-outline" onclick="openPhoto()">Voir la photo →</button>
-          </div>
-
-          <div class="media-line">
-            <div class="media-label"><span class="emoji">🌐</span> <span>Fiche partenaire complète</span></div>
-            <button class="btn btn-outline" onclick="openPartnerForm('loc')">Ouvrir fiche DIGIY →</button>
-          </div>
-
+      <div class="form-card">
+        <div class="form-title">Réservations à venir</div>
+        <div class="small-list" id="resaList">
+          <!-- rempli par JS -->
         </div>
       </div>
-    </section>
-
-    <!-- DÉTAILS -->
-    <section class="section">
-      <h2>Ambiance & équipements</h2>
-      <p>
-        CHEZ ASTOU & BAPTISTE, c'est une maison tenue avec soin, pensée pour que vous vous sentiez
-        vraiment chez vous : propre, calme, chaleureuse, avec un accueil humain au cœur.
-      </p>
-
-      <ul class="equip-list">
-        <li>Salon convivial</li>
-        <li>Chambres confortables</li>
-        <li>Cuisine équipée</li>
-        <li>Espace calme pour télétravail</li>
-        <li>Quartier paisible</li>
-        <li>Accès facile depuis la route principale</li>
-      </ul>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="section">
-      <h2>Réserver en direct</h2>
-
-      <div class="contact-grid">
-        <div>
-          <p class="contact-line">📍 <strong>Adresse :</strong> Saly Joseph, près de l'école française.</p>
-          <p class="contact-line">📞 <strong>Téléphone :</strong> +221 77 876 57 85</p>
-        </div>
-
-        <div>
-          <p class="contact-line">
-            Contactez les propriétaires directement pour vos dates et vos besoins spécifiques.
-          </p>
-
-          <div class="contact-cta">
-            <a class="btn btn-call" href="tel:+221778765785">📞 Appeler</a>
-            <a class="btn btn-wa" href="https://wa.me/221778765785" target="_blank">💬 WhatsApp</a>
-          </div>
-        </div>
-      </div>
-
-      <p class="disclaimer">
-        Propulsé par DIGIY LOC — Location en direct, 0% commission.
-      </p>
     </section>
 
   </main>
+</div>
 
-  <!-- JS externalisé -->
-  <script src="html.js"></script>
+<script>
+  // 👉 Supabase DIGIY CORE (tes valeurs)
+  const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
 
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // 👉 State planning
+  const state = {
+    startDate: stripTime(new Date()),
+    days: 14,
+    rooms: [],
+    reservations: []
+  };
+
+  // —— Helpers date ——
+  function stripTime(d){
+    const x = new Date(d);
+    x.setHours(0,0,0,0);
+    return x;
+  }
+
+  function addDays(d,n){
+    const x = new Date(d);
+    x.setDate(x.getDate()+n);
+    return x;
+  }
+
+  function toISODate(d){
+    return d.toISOString().slice(0,10);
+  }
+
+  function formatDateFR(d){
+    return d.toLocaleDateString("fr-FR",{day:"2-digit",month:"2-digit"});
+  }
+
+  function formatDayFR(d){
+    return d.toLocaleDateString("fr-FR",{weekday:"short"});
+  }
+
+  // 👉 MIS À JOUR du bandeau de dates
+  function updateDateHeader(){
+    const start = state.startDate;
+    const end   = addDays(start, state.days-1);
+    const title = document.getElementById("dateRangeTitle");
+    const sub   = document.getElementById("dateRangeSub");
+
+    title.textContent = "Planning " + formatDateFR(start) + " → " + formatDateFR(end);
+    sub.textContent   = state.days + " jours de visibilité — Appartement complet Chez Baptiste";
+  }
+
+  // 👉 Charger rooms + reservations depuis Supabase
+  async function loadData(){
+    setStatus("Chargement du planning en cours…","info");
+
+    const startISO = toISODate(state.startDate);
+    const endISO   = toISODate(addDays(state.startDate, state.days)); // exclusif
+
+    // 1) Rooms (Chez Baptiste uniquement)
+    const { data: rooms, error: roomsError } = await client
+      .from("loc_rooms")
+      .select("*")
+      .eq("business_slug","chez-baptiste")
+      .order("name",{ascending:true});
+
+    if(roomsError){
+      console.error(roomsError);
+      setStatus("Erreur chargement chambres : " + roomsError.message,"error");
+      return;
+    }
+    if(!rooms || rooms.length === 0){
+      setStatus("Aucune chambre trouvée pour 'chez-baptiste'. Vérifie la table loc_rooms.","error");
+      state.rooms = [];
+      renderPlanning();
+      return;
+    }
+    state.rooms = rooms;
+
+    // 2) Reservations qui se chevauchent avec la période
+    // condition: check_in < endISO AND check_out > startISO
+    const { data: resas, error: resError } = await client
+      .from("loc_reservations")
+      .select("*")
+      .lt("check_in", endISO)
+      .gt("check_out", startISO)
+      .order("check_in",{ascending:true});
+
+    if(resError){
+      console.error(resError);
+      setStatus("Erreur chargement réservations : " + resError.message,"error");
+      state.reservations = [];
+    } else {
+      state.reservations = resas || [];
+      setStatus("Planning synchronisé avec Supabase.","ok");
+    }
+
+    updateDateHeader();
+    renderPlanning();
+    renderResaList();
+  }
+
+  // 👉 Trouver réservation pour une chambre et une date donnée
+  function findReservationForCell(roomId, day){
+    const dISO = toISODate(day);
+    // On travaille en mode: check_in <= d < check_out
+    return state.reservations.find(r => {
+      if(r.room_id !== roomId) return false;
+      const ci = new Date(r.check_in+"T00:00:00");
+      const co = new Date(r.check_out+"T00:00:00");
+      const dd = stripTime(day);
+      return ci <= dd && dd < co;
+    });
+  }
+
+  // 👉 Rendu planning
+  function renderPlanning(){
+    const table = document.getElementById("planningTable");
+    table.innerHTML = "";
+
+    // En-tête
+    const thead = document.createElement("thead");
+    const trHead = document.createElement("tr");
+
+    const thRoom = document.createElement("th");
+    thRoom.className = "col-room";
+    thRoom.innerHTML = "Logement";
+    trHead.appendChild(thRoom);
+
+    for(let i=0;i<state.days;i++){
+      const d = addDays(state.startDate,i);
+      const th = document.createElement("th");
+      const day = formatDayFR(d);
+      const date = formatDateFR(d);
+      th.innerHTML = `
+        <div class="day-label">${day}</div>
+        <div class="day-date">${date}</div>
+      `;
+      trHead.appendChild(th);
+    }
+
+    thead.appendChild(trHead);
+    table.appendChild(thead);
+
+    // Corps (une ligne par chambre)
+    const tbody = document.createElement("tbody");
+
+    state.rooms.forEach(room => {
+      const tr = document.createElement("tr");
+
+      // Colonne logement
+      const tdRoom = document.createElement("td");
+      tdRoom.className = "col-room";
+      tdRoom.innerHTML = `
+        <div class="room-name">${room.name}</div>
+        <div class="room-sub">Capacité ${room.capacity || 4} pers • Code ${room.code || "-"}</div>
+      `;
+      tr.appendChild(tdRoom);
+
+      // Colonnes jours
+      for(let i=0;i<state.days;i++){
+        const d = addDays(state.startDate,i);
+        const resa = findReservationForCell(room.id, d);
+
+        const td = document.createElement("td");
+        const cell = document.createElement("div");
+        cell.className = "day-cell";
+
+        let cls = "";
+        let tag = "";
+        let main = "";
+
+        if(room.status && room.status !== "open"){
+          cls = "status-closed";
+          tag = "Fermé";
+          main = "";
+        } else if(resa){
+          const src = (resa.source || "digiy").toLowerCase();
+          if(src === "booking" || src === "ota" || src === "expedia"){
+            cls = "status-ota";
+            tag = src === "booking" ? "Booking" : "OTA";
+          } else {
+            cls = "status-digiy";
+            tag = "DIGIY";
+          }
+          main = resa.guest_name || "Réservé";
+        } else {
+          cls = "status-free";
+          tag = "Libre";
+          main = "Réservable";
+        }
+
+        cell.classList.add(cls);
+        cell.innerHTML = `
+          <div class="cell-tag">${tag}</div>
+          <div class="cell-main">${main}</div>
+        `;
+
+        // Petit tooltip console pour debug si besoin
+        cell.onclick = () => {
+          if(resa){
+            alert(
+              "Réservation : " + (resa.guest_name || "") + "\n" +
+              "Source : " + (resa.source || "digiy") + "\n" +
+              "Arrivée : " + resa.check_in + "\n" +
+              "Départ : " + resa.check_out
+            );
+          } else if(room.status && room.status !== "open"){
+            alert("Logement fermé ce jour-là.");
+          } else {
+            alert("Jour libre. Tu peux ajouter une réservation avec le formulaire en bas.");
+          }
+        };
+
+        td.appendChild(cell);
+        tr.appendChild(td);
+      }
+
+      tbody.appendChild(tr);
+    });
+
+    table.appendChild(tbody);
+  }
+
+  // 👉 Liste compacte des réservations à venir
+  function renderResaList(){
+    const box = document.getElementById("resaList");
+    box.innerHTML = "";
+
+    if(!state.reservations || state.reservations.length === 0){
+      box.textContent = "Aucune réservation dans la période affichée.";
+      return;
+    }
+
+    const nowISO = toISODate(stripTime(new Date()));
+
+    const arr = [...state.reservations]
+      .sort((a,b) => (a.check_in+a.check_out).localeCompare(b.check_in+b.check_out));
+
+    arr.forEach(r => {
+      const div = document.createElement("div");
+      div.className = "small-row";
+
+      const src = (r.source || "digiy").toLowerCase();
+      let srcLabel = "DIGIY";
+      if(src === "booking") srcLabel = "Booking.com";
+      else if(src === "ota") srcLabel = "Autre OTA";
+      else if(src === "direct") srcLabel = "Direct";
+
+      const futureMark = (r.check_in >= nowISO) ? "🟢" : "⚪️";
+
+      div.innerHTML = `
+        <div>
+          <strong>${futureMark} ${r.guest_name || "Client"}</strong>
+          <span style="font-size:11px;opacity:0.9;"> (${srcLabel})</span><br>
+          <span>${r.check_in} → ${r.check_out}</span><br>
+          <span style="font-size:12px;opacity:0.9;">${r.phone || ""}</span>
+        </div>
+      `;
+      box.appendChild(div);
+    });
+  }
+
+  // 👉 Status message
+  function setStatus(msg,type){
+    const el = document.getElementById("status");
+    el.textContent = msg || "";
+    el.className = "";
+    if(type === "ok") el.classList.add("status-ok");
+    else if(type === "error") el.classList.add("status-error");
+  }
+
+  // 👉 Formulaire : ajout de réservation
+  async function onSubmitForm(e){
+    e.preventDefault();
+    setStatus("Enregistrement en cours…","info");
+
+    if(!state.rooms || state.rooms.length === 0){
+      setStatus("Pas de chambre trouvée pour Chez Baptiste.","error");
+      return;
+    }
+
+    const guestName = document.getElementById("guestName").value.trim();
+    const phone     = document.getElementById("phone").value.trim();
+    const checkIn   = document.getElementById("checkIn").value;
+    const checkOut  = document.getElementById("checkOut").value;
+    const source    = document.getElementById("source").value;
+    const comment   = document.getElementById("comment").value.trim();
+
+    if(!guestName || !checkIn || !checkOut){
+      setStatus("Merci de remplir au moins nom, arrivée, départ.","error");
+      return;
+    }
+
+    if(checkOut <= checkIn){
+      setStatus("La date de départ doit être après la date d’arrivée.","error");
+      return;
+    }
+
+    const room = state.rooms[0]; // planning 100% Chez Baptiste = 1 appart
+    const ciDate = new Date(checkIn+"T00:00:00");
+    const coDate = new Date(checkOut+"T00:00:00");
+
+    // Vérifier la collision simple côté front
+    const conflict = state.reservations.some(r => {
+      if(r.room_id !== room.id) return false;
+      const rci = new Date(r.check_in+"T00:00:00");
+      const rco = new Date(r.check_out+"T00:00:00");
+      // chevauchement : rci < co && rco > ci
+      return rci < coDate && rco > ciDate;
+    });
+
+    if(conflict){
+      setStatus("Conflit : une autre réservation couvre déjà tout ou partie de ces dates.","error");
+      return;
+    }
+
+    const payload = {
+      room_id: room.id,
+      guest_name: guestName,
+      phone,
+      source,
+      check_in: checkIn,
+      check_out: checkOut,
+      status: "confirmed",
+      comment
+    };
+
+    const btn = document.getElementById("btnSave");
+    btn.disabled = true;
+
+    try{
+      const { error } = await client
+        .from("loc_reservations")
+        .insert([payload]);
+
+      if(error){
+        console.error(error);
+        setStatus("Erreur Supabase : " + error.message,"error");
+      } else {
+        setStatus("✅ Réservation enregistrée pour " + guestName,"ok");
+        document.getElementById("resaForm").reset();
+        // Reset dates par défaut
+        initFormDates();
+        await loadData();
+      }
+    } catch(err){
+      console.error(err);
+      setStatus("Erreur inattendue. Réessaie dans un instant.","error");
+    } finally{
+      btn.disabled = false;
+    }
+  }
+
+  function initFormDates(){
+    const today = stripTime(new Date());
+    const ci = document.getElementById("checkIn");
+    const co = document.getElementById("checkOut");
+    ci.value = toISODate(today);
+    co.value = toISODate(addDays(today,1));
+  }
+
+  // 👉 Navigation boutons
+  document.getElementById("btnPrev").addEventListener("click", () => {
+    state.startDate = addDays(state.startDate, -state.days);
+    loadData();
+  });
+  document.getElementById("btnNext").addEventListener("click", () => {
+    state.startDate = addDays(state.startDate, state.days);
+    loadData();
+  });
+  document.getElementById("btnToday").addEventListener("click", () => {
+    state.startDate = stripTime(new Date());
+    loadData();
+  });
+
+  document.getElementById("resaForm").addEventListener("submit", onSubmitForm);
+
+  // 👉 Boot
+  (function init(){
+    initFormDates();
+    loadData();
+  })();
+</script>
 </body>
 </html>
