@@ -181,26 +181,29 @@
   <div class="grid">
     <div class="card">
       <div class="calTop">
-        <div class="row">
-          <div>
-            <div class="muted">Logement</div>
-            <select id="selLogement"></select>
-          </div>
-          <div class="legend">
-            <span class="pill">open</span>
-            <span class="pill">closed</span>
-            <span class="pill">occupied (auto)</span>
-            <span class="pill">prix override</span>
-          </div>
-        </div>
+  <div class="row">
+    <div>
+      <div class="muted">Logement</div>
+      <select id="selLogement"></select>
+    </div>
 
-        <div class="calNav">
-          <button class="secondary" id="prevMonth">◀</button>
-          <span class="pill" id="monthLabel">—</span>
-          <button class="secondary" id="nextMonth">▶</button>
-        </div>
-      </div>
+    <div class="legend">
+      <span class="pill">open</span>
+      <span class="pill">closed</span>
+      <span class="pill">occupied (auto)</span>
+      <span class="pill">prix override</span>
+    </div>
+  </div>
 
+  <div class="calNav">
+    <button class="secondary" id="prevMonth">◀</button>
+    <span class="pill" id="monthLabel">—</span>
+    <button class="secondary" id="nextMonth">▶</button>
+
+    <!-- ✅ LE BOUTON EST ICI, POINT -->
+    <button class="secondary" id="btnBulk">📅 Appliquer sur une période</button>
+  </div>
+</div>
       <div class="cal" id="cal">
         <!-- calendar -->
       </div>
@@ -664,5 +667,44 @@ sb.auth.onAuthStateChange(async ()=>{
   await reloadAll();
 })();
 </script>
+  <div class="modalBack" id="bulkBack">
+  <div class="modal">
+    <div class="modalTop">
+      <h3 class="modalTitle">Appliquer sur une période</h3>
+      <button class="secondary" onclick="closeBulk()">Fermer</button>
+    </div>
+
+    <div class="modalGrid">
+      <div>
+        <div class="muted">Du</div>
+        <input id="bStart" type="date">
+      </div>
+
+      <div>
+        <div class="muted">Au</div>
+        <input id="bEnd" type="date">
+      </div>
+
+      <div>
+        <div class="muted">État</div>
+        <select id="bState">
+          <option value="open">open (disponible)</option>
+          <option value="closed">closed (fermé)</option>
+        </select>
+      </div>
+
+      <div>
+        <div class="muted">Prix nuit (optionnel)</div>
+        <input id="bPrice" placeholder="ex: 25000" inputmode="numeric">
+      </div>
+
+      <button onclick="applyBulk()">✅ Appliquer</button>
+
+      <div class="modalNote">
+        Les jours <b>occupied</b> (réservations confirmées) ne sont jamais modifiés.
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
