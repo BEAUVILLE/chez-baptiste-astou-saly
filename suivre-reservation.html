@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>DIGIY LOC — Suivre ma réservation</title>
+  <meta name="theme-color" content="#16a34a"/>
+
+  <style>
+    :root{
+      --green:#16a34a; --bg:#061b14; --card:#0b2a1f;
+      --line:rgba(255,255,255,.14); --text:#eafff1; --muted:rgba(234,255,241,.78);
+      --danger:#ef4444; --warn:#f59e0b;
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      background:radial-gradient(900px 500px at 10% -10%, rgba(34,197,94,.20), transparent 60%),
+                 radial-gradient(900px 500px at 90% 0%, rgba(250,204,21,.10), transparent 55%),
+                 var(--bg);
+      color:var(--text);
+      display:flex; justify-content:center;
+      padding:22px 14px;
+    }
+    .wrap{width:min(720px,100%);}
+    .hero{
+      padding:18px 16px; border:1px solid var(--line); border-radius:22px;
+      background:linear-gradient(180deg, rgba(22,163,74,.14), rgba(11,42,31,.92));
+      box-shadow:0 10px 40px rgba(0,0,0,.35);
+    }
+    .title{font-size:22px; font-weight:900; letter-spacing:.2px; margin:0 0 6px}
+    .sub{margin:0; color:var(--muted); font-size:14px; line-height:1.4}
+    .card{
+      margin-top:14px;
+      padding:16px; border:1px solid var(--line); border-radius:22px;
+      background:rgba(11,42,31,.86);
+      box-shadow:0 10px 40px rgba(0,0,0,.28);
+    }
+    label{display:block; font-weight:800; margin:10px 0 6px}
+    input{
+      width:100%; padding:14px 14px; border-radius:14px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(0,0,0,.22);
+      color:var(--text); outline:none;
+      font-size:16px;
+    }
+    input::placeholder{color:rgba(234,255,241,.55)}
+    .row{display:grid; grid-template-columns:1fr; gap:10px}
+    @media(min-width:640px){ .row{grid-template-columns:1fr 1fr;} }
+
+    .btns{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    button{
+      border:0; border-radius:14px; padding:12px 14px;
+      font-weight:900; cursor:pointer;
+      background:var(--green); color:#062016;
+      box-shadow:0 10px 20px rgba(22,163,74,.18);
+    }
+    button.secondary{
+      background:transparent; color:var(--text);
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:none;
+    }
+    button.danger{
+      background:var(--danger); color:#fff;
+      box-shadow:0 10px 20px rgba(239,68,68,.18);
+    }
+    button:disabled{opacity:.55; cursor:not-allowed}
+    .status{
+      margin-top:12px; padding:10px 12px; border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.16);
+      color:var(--muted);
+      white-space:pre-wrap;
+      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:13px;
+      display:none;
+    }
+    .result{display:none; margin-top:14px}
+    .pill{
+      display:inline-block; padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+      font-size:12px; font-weight:900;
+    }
+    .kv{margin-top:10px; display:grid; grid-template-columns:1fr; gap:8px}
+    .kv div{padding:10px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background:rgba(0,0,0,.14)}
+    .k{color:var(--muted); font-size:12px; font-weight:800}
+    .v{font-weight:900; margin-top:3px}
+    .foot{margin-top:12px; color:var(--muted); font-size:12px; line-height:1.4}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1 class="title">Suivre ma réservation</h1>
+      <p class="sub">Entre ton téléphone et ton code <b>BAPT-123456</b>. Tu peux consulter le statut et annuler si besoin.</p>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <div>
+          <label for="phone">Téléphone</label>
+          <input id="phone" placeholder="+22177xxxxxxx" autocomplete="tel"/>
+        </div>
+        <div>
+          <label for="code">Code de suivi</label>
+          <input id="code" placeholder="BAPT-123456" autocomplete="off" style="text-transform:uppercase"/>
+        </div>
+      </div>
+
+      <div class="btns">
+        <button id="btnLookup">Rechercher</button>
+        <button id="btnClear" class="secondary" type="button">Effacer</button>
+        <button id="btnCancel" class="danger" type="button" style="display:none">Annuler la réservation</button>
+      </div>
+
+      <div id="dbg" class="status"></div>
+
+      <div id="result" class="result">
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <span class="pill" id="pillStatus">—</span>
+          <span class="pill" id="pillCode">—</span>
+        </div>
+
+        <div class="kv">
+          <div><div class="k">Logement</div><div class="v" id="rLogement">—</div></div>
+          <div><div class="k">Arrivée</div><div class="v" id="rArrivee">—</div></div>
+          <div><div class="k">Départ</div><div class="v" id="rDepart">—</div></div>
+          <div><div class="k">Nuits</div><div class="v" id="rNuits">—</div></div>
+          <div><div class="k">Montant</div><div class="v" id="rMontant">—</div></div>
+          <div><div class="k">Paiement</div><div class="v" id="rPaiement">—</div></div>
+        </div>
+
+        <div class="foot">
+          Astuce : garde ton code. Si tu annules, le statut passe à <b>annulee</b> et les dates se libèrent.
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* =========================
+   CONFIG DIGIY (PROD)
+========================= */
+const PROJECT_REF = "wesqmwjjtsefyjnluosj";
+const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
+
+const FN_LOOKUP = `https://${PROJECT_REF}.functions.supabase.co/reservation-lookup`;
+const FN_CANCEL = `https://${PROJECT_REF}.functions.supabase.co/reservation-cancel`;
+
+/* =========================
+   UI helpers
+========================= */
+const $ = (id)=>document.getElementById(id);
+const dbg = (msg)=>{
+  const el = $("dbg");
+  el.style.display = "block";
+  el.textContent += msg + "\n";
+};
+const dbgClear = ()=>{ $("dbg").textContent=""; $("dbg").style.display="none"; };
+
+function normalizeCode(code){
+  return String(code||"").trim().toUpperCase();
+}
+function normalizePhone(phone){
+  return String(phone||"").trim();
+}
+function money(x){
+  const n = Number(x||0);
+  return n.toLocaleString("fr-FR") + " F CFA";
+}
+function setBusy(b){
+  $("btnLookup").disabled = b;
+  $("btnClear").disabled = b;
+  $("btnCancel").disabled = b;
+}
+
+/* =========================
+   Call Edge Function
+   (Supabase requires both apikey + Authorization Bearer)
+========================= */
+async function callFn(url, payload){
+  const res = await fetch(url, {
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+      "apikey": ANON_KEY,
+      "Authorization": "Bearer " + ANON_KEY
+    },
+    body: JSON.stringify(payload)
+  });
+  const data = await res.json().catch(()=> ({}));
+  if(!res.ok){
+    const msg = data?.error || data?.message || ("HTTP " + res.status);
+    throw new Error(msg);
+  }
+  return data;
+}
+
+/* =========================
+   Render
+========================= */
+let lastReservation = null;
+
+function renderReservation(r){
+  lastReservation = r;
+
+  $("result").style.display = "block";
+  $("pillStatus").textContent = "STATUT: " + (r.status || "—");
+  $("pillCode").textContent = (r.tracking_code || "—");
+
+  $("rLogement").textContent = r.logement_nom || "—";
+  $("rArrivee").textContent = r.date_arrivee || "—";
+  $("rDepart").textContent = r.date_depart || "—";
+  $("rNuits").textContent = (r.nb_nuits ?? "—");
+  $("rMontant").textContent = money(r.montant_total);
+  $("rPaiement").textContent = r.mode_paiement || "—";
+
+  // show cancel only if not already annulee
+  $("btnCancel").style.display = (r.status !== "annulee") ? "inline-block" : "none";
+}
+
+/* =========================
+   Actions
+========================= */
+$("btnLookup").addEventListener("click", async ()=>{
+  dbgClear();
+  setBusy(true);
+  try{
+    const phone = normalizePhone($("phone").value);
+    const code  = normalizeCode($("code").value);
+    if(!phone || !code) throw new Error("Téléphone et code requis.");
+
+    dbg("lookup -> " + code + " / " + phone);
+    const out = await callFn(FN_LOOKUP, { tracking_code: code, client_phone: phone });
+    if(!out?.ok || !out?.reservation) throw new Error("Réservation introuvable.");
+    renderReservation(out.reservation);
+  }catch(e){
+    dbg("ERROR: " + (e.message || e));
+    $("result").style.display = "none";
+    $("btnCancel").style.display = "none";
+    lastReservation = null;
+  }finally{
+    setBusy(false);
+  }
+});
+
+$("btnCancel").addEventListener("click", async ()=>{
+  dbgClear();
+  setBusy(true);
+  try{
+    const phone = normalizePhone($("phone").value);
+    const code  = normalizeCode($("code").value);
+    if(!phone || !code) throw new Error("Téléphone et code requis.");
+
+    if(!confirm("Confirmer l'annulation ?")) { setBusy(false); return; }
+
+    dbg("cancel -> " + code + " / " + phone);
+    const out = await callFn(FN_CANCEL, { tracking_code: code, client_phone: phone });
+    if(!out?.ok) throw new Error("Annulation impossible.");
+    renderReservation(out.reservation);
+    dbg("OK: annulée.");
+  }catch(e){
+    dbg("ERROR: " + (e.message || e));
+  }finally{
+    setBusy(false);
+  }
+});
+
+$("btnClear").addEventListener("click", ()=>{
+  dbgClear();
+  $("phone").value = "";
+  $("code").value = "";
+  $("result").style.display = "none";
+  $("btnCancel").style.display = "none";
+  lastReservation = null;
+});
+</script>
+</body>
+</html>
